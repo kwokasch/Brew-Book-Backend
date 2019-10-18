@@ -5,7 +5,6 @@ class CreateBeers < ActiveRecord::Migration[6.0]
       t.string :variety
       t.integer :rating
       t.text :comments
-      t.references :breweries, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -79,7 +79,7 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: postgres://fpttzotrughmqt:99deb8bbd153d86d5dc93144f519e0daac51015835c0009067da10a8dc95d0fa@ec2-54-83-33-14.compute-1.amazonaws.com:5432/denl9riqk541jk
-  database: denl9riqk541jk
-  username: fpttzotrughmqt
-  password: 99deb8bbd153d86d5dc93144f519e0daac51015835c0009067da10a8dc95d0fa
+  <<: postgres://bhsvppxzirifak:3aeb6c0d1dfe6a1da15ff59e961bb6b1e6eefedfeae59d3727d3275bce301cd7@ec2-174-129-210-249.compute-1.amazonaws.com:5432/d6a18saqiucq78
+  database: d6a18saqiucq78
+  username: bhsvppxzirifak
+  password: 3aeb6c0d1dfe6a1da15ff59e961bb6b1e6eefedfeae59d3727d3275bce301cd7
