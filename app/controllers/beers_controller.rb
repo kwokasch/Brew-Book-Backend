@@ -4,13 +4,11 @@ class BeersController < ApplicationController
     before_action :set_beer, only: [:show, :update]
 
     def index
-        beer_id = get_beer_id("Liberty Blonde")
-        
-        begin
-            @beers = Beer.all 
+        # beer_id = get_beer_id("Liberty Blonde")
+        @beers = Beer.all 
             
-            render json: @beers
-        end
+        render json: @beers
+        
     end
     
     
