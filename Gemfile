@@ -44,3 +44,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'jwt'
 
 gem 'active_model_serializers'
+
+gem 'dotenv-rails'
+gem "rest-client", "~> 2.1"
+
+gem 'brewery_db'
