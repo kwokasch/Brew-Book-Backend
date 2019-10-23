@@ -1,71 +1,62 @@
 require 'rest-client'
 
 class BeersController < ApplicationController
-    before_action :set_beer, only: [:show, :update]
 
     def index
-        # beer_id = get_beer_id("Liberty Blonde")
         @beers = Beer.all 
-            
-        render json: @beers
         
+        render json: @beers
     end
     
-    
     def show
-        # beer_id = get_beer_id(params[:name])
         
+        beer_id = get_beer_id(params[:name])
 
-        # rest_client = RestClient.get("https://sandbox-api.brewerydb.com/v2/beer/#{beer_id}/?key=#{ENV['API_KEY']}") 
-        # # rest_client = RestClient.get("https://sandbox-api.brewerydb.com/v2/beers/'3Csw32'/?key=#{ENV['API_KEY']}") 
-        # # 3Csw32
-        # response = JSON.parse(rest_client)
+        rest_client = RestClient.get("https://sandbox-api.brewerydb.com/v2/beer/#{beer_id}/?key=#{ENV['API_KEY']}") 
+        response = JSON.parse(rest_client)
 
+        @beer = Beer.find(params[:id])
+        
         render json: @beer
     end     
     
-    
     def create
-        
-    #     # @beer = Beer.new(beer_params) 
+        @beer = Beer.create({
+            name: params["name"], 
+            variety: params["variety"],
+            rating: params["rating"],
+            comments: params["comments"]
+            })
 
-    #     # if @beer.save
-    #     #     render json: @beer, status: :created, location: @beer
-    #     # else
-    #     #     render json: @beer.errors, status: :unprocessable_entity
-    #     # end
+        redirect_to "http://localhost:3001"
     end
 
-
     def update
-        if @beer.update(beer_params)
-          render json: @beer
-        else
-          render json: @beer.errors, status: :unprocessable_entity
-        end
+        @beer = Beer.update(beer_params)
+          
+        render json: @beer
     end
 
     private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_beer
-        @beer = Beer.find(params[:id])
-    end  
 
     def get_beer_id(beer_name)
-        # rest_client = RestClient.get("https://sandbox-api.brewerydb.com/v2/beers/?key=#{ENV['API_KEY']}")
-        # rest_client = RestClient.get("https://sandbox-api.brewerydb.com/v2/search?q=#{beer_name}&key=#{ENV['API_KEY']}") 
         rest_client = RestClient.get("https://sandbox-api.brewerydb.com/v2/search?q=#{beer_name}&key=#{ENV['API_KEY']}") 
-        response = JSON.parse(rest_client)
         
-        selected_beer = response["data"].find do |beer| 
-            beer["name"] === beer_name
-        end       
-        selected_beer["id"]    
-        byebug
+        response = JSON.parse(rest_client)
+        beers = response["data"]
+
+        if beers
+            selected_beer = beers.find do |beer| 
+                beer["name"] === beer_name
+            end       
+            selected_beer["id"]
+        else
+            nil
+        end
+        
     end
 
-    # Only allow a trusted parameter "white list" through.
     def beer_params
-        params.require(:beer).permit(:name, :variety, :rating, :comments)
+        params.require(:beer).permit(:id, :api_id, :name, :variety, :rating, :comments)
     end
 end
