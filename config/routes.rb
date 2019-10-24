@@ -4,4 +4,7 @@ Rails.application.routes.draw do
   resources :searches
   resources :users, only: [:create]
   resources :favorites
+
+  post '/auth/login', to: 'authentication#login'
+  get '/*a', to: 'application#not_found'
 end
