@@ -6,10 +6,13 @@ class FavoritesController < ApplicationController
     end
 
     def create
-        @favorite = Favorite.create(favorite_params)
+        @favorite = Favorite.new({
+            user_id: params[:user_id],
+            beer_id: params[:beer_id]
+        })
 
         if @favorite.save
-            render status: :created
+            render json: @favorite, status: :created
         else 
             render status: :bad_request
         end
@@ -20,11 +23,5 @@ class FavoritesController < ApplicationController
         @favorite.destroy
 
         redirect to "http://localhost:3001/beer.html"
-    end
-
-    private
-
-    def favorite_params
-        params.permit(:user_id, :beer_id)
     end
 end

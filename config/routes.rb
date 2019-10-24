@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :beers, only: [:index, :show, :create, :update]
   resources :searches
   resources :users, only: [:create]
+  resources :favorites
 end
