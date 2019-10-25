@@ -22,7 +22,7 @@ class SearchesController < ApplicationController
                     })
             else
                 # redirect_to action: "index"
-                redirect_to "http://localhost:3001"
+                # redirect_to "http://localhost:3001/beer.html"
                 "Please create a new beer."
             end
         end

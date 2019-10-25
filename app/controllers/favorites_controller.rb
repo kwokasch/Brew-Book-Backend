@@ -16,10 +16,12 @@ class FavoritesController < ApplicationController
         else 
             render status: :bad_request
         end
+
     end
 
     def destroy
-        @favorite = Favorite.find(params[:id])
+        @favorite = Favorite.find(user_id: params[:user_id], beer_id: params[:beer_id])
+        
         @favorite.destroy
 
         redirect to "http://localhost:3001/beer.html"

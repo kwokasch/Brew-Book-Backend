@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
     before_action :authorize_request, except: :create
 
+    def show
+        @user = User.find(params[:id])
+
+        render json: @user, include: :beers
+    end
+    
     def create
         @user = User.new({
             username: params[:username],
