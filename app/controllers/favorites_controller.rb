@@ -20,10 +20,8 @@ class FavoritesController < ApplicationController
     end
 
     def destroy
-        @favorite = Favorite.find(user_id: params[:user_id], beer_id: params[:beer_id])
+        @favorite = Favorite.find_by(user_id: params[:user_id], beer_id: params[:beer_id])
         
         @favorite.destroy
-
-        redirect to "http://localhost:3001/beer.html"
     end
 end
